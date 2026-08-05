@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Хрономер — профессиональный онлайн-хронометр</title>
+    <title>Хрономер — калькулятор времени озвучки текста</title>
+    <meta name="description" content="Хрономер — онлайн-инструмент для расчета времени озвучки текста профессиональным диктором. Производство аудио и видеороликов: дикторы, моушн-дизайн, 3D, 2D, AI, монтаж. Контакты: den.rolic@mail.ru, +79098386889, @denrolic.">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>⏱️</text></svg>">
 </head>
@@ -11,46 +12,32 @@
     <div class="container">
         <header>
             <h1>⏱️ Хрономер</h1>
-            <p>Инструмент точного хронометража и таймера для ваших задач</p>
+            <p>Расчёт времени профессиональной озвучки текста</p>
         </header>
 
-        <div class="tabs">
-            <button class="tab-btn active" data-tab="stopwatch">Секундомер</button>
-            <button class="tab-btn" data-tab="timer">Таймер</button>
+        <div class="tempo-selector">
+            <span class="tempo-label">Темп речи:</span>
+            <label class="tempo-option">
+                <input type="radio" name="tempo" value="100">
+                <span>Размеренный <em>(100 сл/мин)</em></span>
+            </label>
+            <label class="tempo-option active">
+                <input type="radio" name="tempo" value="120" checked>
+                <span>Стандартный <em>(120 сл/мин)</em></span>
+            </label>
+            <label class="tempo-option">
+                <input type="radio" name="tempo" value="140">
+                <span>Быстрый <em>(140 сл/мин)</em></span>
+            </label>
         </div>
 
-        <!-- Секундомер -->
-        <div class="tab-content active" id="stopwatch">
-            <div class="display" id="stopwatch-display">00:00:00.000</div>
-            <div class="controls">
-                <button class="btn btn-start" id="sw-start">Старт</button>
-                <button class="btn btn-lap" id="sw-lap" disabled>Круг</button>
-                <button class="btn btn-reset" id="sw-reset">Сброс</button>
-            </div>
-            <div class="laps" id="laps-container"></div>
+        <textarea id="text-input" placeholder="Введите или вставьте текст для озвучки..."></textarea>
+
+        <div class="result" id="result-block">
+            <span>Время звучания: </span>
+            <span id="time-output">0:00</span>
         </div>
 
-        <!-- Таймер -->
-        <div class="tab-content" id="timer">
-            <div class="timer-inputs">
-                <input type="number" id="timer-hours" value="0" min="0" max="99" placeholder="ЧЧ">
-                <span>:</span>
-                <input type="number" id="timer-minutes" value="0" min="0" max="59" placeholder="ММ">
-                <span>:</span>
-                <input type="number" id="timer-seconds" value="0" min="0" max="59" placeholder="СС">
-            </div>
-            <div class="display" id="timer-display">00:00:00</div>
-            <div class="controls">
-                <button class="btn btn-start" id="timer-start">Старт</button>
-                <button class="btn btn-pause" id="timer-pause" disabled>Пауза</button>
-                <button class="btn btn-reset" id="timer-reset">Сброс</button>
-            </div>
-            <audio id="timer-alarm" preload="auto">
-                <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" type="audio/mpeg">
-            </audio>
-        </div>
-
-        <!-- Деловой футер -->
         <footer class="business-footer">
             <div class="footer-content">
                 <p class="footer-title">📢 Заказ аудио и видеороликов</p>
