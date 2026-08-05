@@ -15,21 +15,23 @@
             <p>Расчёт времени профессиональной озвучки текста</p>
         </header>
 
-        <div class="tempo-selector">
-            <span class="tempo-label">Темп речи:</span>
-            <label class="tempo-option">
-                <input type="radio" name="tempo" value="100">
-                <span>Размеренный <em>(100 сл/мин)</em></span>
-            </label>
-            <label class="tempo-option active">
-                <input type="radio" name="tempo" value="120" checked>
-                <span>Стандартный <em>(120 сл/мин)</em></span>
-            </label>
-            <label class="tempo-option">
-                <input type="radio" name="tempo" value="140">
-                <span>Быстрый <em>(140 сл/мин)</em></span>
-            </label>
-        </div>
+      <div class="tempo-selector">
+    <span class="tempo-label">Темп речи:</span>
+    <input type="radio" name="tempo" value="100" id="tempo-slow">
+    <label class="tempo-option" for="tempo-slow">
+        <span>Размеренный <em>(100 сл/мин)</em></span>
+    </label>
+
+    <input type="radio" name="tempo" value="120" id="tempo-normal" checked>
+    <label class="tempo-option active" for="tempo-normal">
+        <span>Стандартный <em>(120 сл/мин)</em></span>
+    </label>
+
+    <input type="radio" name="tempo" value="140" id="tempo-fast">
+    <label class="tempo-option" for="tempo-fast">
+        <span>Быстрый <em>(140 сл/мин)</em></span>
+    </label>
+</div>
 
         <textarea id="text-input" placeholder="Введите или вставьте текст для озвучки..."></textarea>
 
