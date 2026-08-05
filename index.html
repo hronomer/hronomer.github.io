@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Хрономер — профессиональный онлайн-хронометр</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>⏱️</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⏱️ Хрономер</h1>
+            <p>Инструмент точного хронометража и таймера для ваших задач</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="stopwatch">Секундомер</button>
+            <button class="tab-btn" data-tab="timer">Таймер</button>
+        </div>
+
+        <!-- Секундомер -->
+        <div class="tab-content active" id="stopwatch">
+            <div class="display" id="stopwatch-display">00:00:00.000</div>
+            <div class="controls">
+                <button class="btn btn-start" id="sw-start">Старт</button>
+                <button class="btn btn-lap" id="sw-lap" disabled>Круг</button>
+                <button class="btn btn-reset" id="sw-reset">Сброс</button>
+            </div>
+            <div class="laps" id="laps-container"></div>
+        </div>
+
+        <!-- Таймер -->
+        <div class="tab-content" id="timer">
+            <div class="timer-inputs">
+                <input type="number" id="timer-hours" value="0" min="0" max="99" placeholder="ЧЧ">
+                <span>:</span>
+                <input type="number" id="timer-minutes" value="0" min="0" max="59" placeholder="ММ">
+                <span>:</span>
+                <input type="number" id="timer-seconds" value="0" min="0" max="59" placeholder="СС">
+            </div>
+            <div class="display" id="timer-display">00:00:00</div>
+            <div class="controls">
+                <button class="btn btn-start" id="timer-start">Старт</button>
+                <button class="btn btn-pause" id="timer-pause" disabled>Пауза</button>
+                <button class="btn btn-reset" id="timer-reset">Сброс</button>
+            </div>
+            <audio id="timer-alarm" preload="auto">
+                <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <!-- Деловой футер -->
+        <footer class="business-footer">
+            <div class="footer-content">
+                <p class="footer-title">📢 Заказ аудио и видеороликов</p>
+                <p class="footer-subtitle">Профессиональное производство. Всегда актуально.</p>
+                <ul class="footer-services">
+                    <li><strong>Аудио:</strong> федеральные дикторы, озвучка любой сложности</li>
+                    <li><strong>Видео:</strong> моушн-дизайн, 3D, 2D, AI, монтаж, реклама, кино, документальное видео и любые другие задачи под ключ</li>
+                </ul>
+                <div class="footer-contacts">
+                    <a href="mailto:den.rolic@mail.ru">den.rolic@mail.ru</a>
+                    <a href="tel:+79098386889">+7 (909) 838-68-89</a>
+                    <a href="https://t.me/denrolic" target="_blank">@denrolic</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
