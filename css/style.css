@@ -56,6 +56,11 @@ header p {
     margin-right: 5px;
 }
 
+/* Скрываем радио-кнопки, оставляем только стилизованные label */
+.tempo-selector input[type="radio"] {
+    display: none;
+}
+
 .tempo-option {
     display: flex;
     align-items: center;
@@ -67,16 +72,13 @@ header p {
     transition: all 0.3s;
     background: #f9f9f9;
     font-size: 0.9rem;
+    user-select: none;
 }
 
 .tempo-option.active {
     border-color: #7b2ff7;
     background: #f3e8ff;
     color: #7b2ff7;
-}
-
-.tempo-option input {
-    display: none;
 }
 
 .tempo-option em {
@@ -100,7 +102,7 @@ textarea {
     color: #1a1a2e;
     margin-bottom: 25px;
     transition: border 0.3s;
-    overflow-y: auto; /* скролл появляется, если текста много */
+    overflow-y: auto;
 }
 
 textarea:focus {
