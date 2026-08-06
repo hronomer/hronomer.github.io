@@ -270,6 +270,32 @@ textarea::-webkit-scrollbar-thumb {
     margin-bottom: 8px;
 }
 
+/* Кнопка APK */
+.apk-download {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.apk-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #c8e6c9;
+    border: 2px solid #66bb6a;
+    color: #2e7d32;
+    padding: 12px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.apk-button:hover {
+    background: #a5d6a7;
+    color: #fff;
+}
+
 /* Футер */
 .business-footer {
     margin-top: 30px;
