@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const textInput = document.getElementById('text-input');
     const timeOutput = document.getElementById('time-output');
+    const charCount = document.getElementById('char-count');
+    const charCountNoSpaces = document.getElementById('char-count-nospaces');
     const tempoOptions = document.querySelectorAll('input[name="tempo"]');
+    const copyBtn = document.getElementById('copy-btn');
 
-    // Подсветка активного темпа
     function updateActiveTempo() {
         tempoOptions.forEach(radio => {
             const label = radio.parentElement;
@@ -15,13 +17,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Получить текущий темп (слов в минуту)
     function getTempo() {
         const checked = document.querySelector('input[name="tempo"]:checked');
         return checked ? parseInt(checked.value) : 120;
     }
 
-    // Подсчёт времени
+    function updateStats() {
+        const text = textInput.value;
+        const totalChars = text.length;
+        const charsWithoutSpaces = text.replace(/\s/g, '').length;
+        charCount.textContent = `Символов: ${totalChars}`;
+        charCountNoSpaces.textContent = `Без пробелов: ${charsWithoutSpaces}`;
+    }
+
     function calculateTime() {
         const text = textInput.value.trim();
         if (!text) {
@@ -29,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Считаем слова (разделители: пробелы, переносы строк, знаки табуляции)
         const words = text.split(/\s+/).filter(word => word.length > 0);
         const wordCount = words.length;
         const wpm = getTempo();
@@ -39,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Время в минутах
         const totalMinutes = wordCount / wpm;
         const minutes = Math.floor(totalMinutes);
         const seconds = Math.round((totalMinutes - minutes) * 60);
@@ -56,8 +62,27 @@ document.addEventListener('DOMContentLoaded', () => {
         timeOutput.textContent = result;
     }
 
-    // Обработчики
-    textInput.addEventListener('input', calculateTime);
+    function updateAll() {
+        updateStats();
+        calculateTime();
+    }
+
+    // Копирование результата
+    function copyResult() {
+        const timeText = timeOutput.textContent;
+        const fullText = `Время звучания: ${timeText}`;
+        navigator.clipboard.writeText(fullText).then(() => {
+            const originalEmoji = copyBtn.textContent;
+            copyBtn.textContent = '✅';
+            setTimeout(() => {
+                copyBtn.textContent = originalEmoji;
+            }, 1500);
+        }).catch(err => {
+            alert('Не удалось скопировать текст. Пожалуйста, скопируйте вручную.');
+        });
+    }
+
+    textInput.addEventListener('input', updateAll);
 
     tempoOptions.forEach(radio => {
         radio.addEventListener('change', () => {
@@ -66,6 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    copyBtn.addEventListener('click', copyResult);
+
     // Инициализация
     updateActiveTempo();
+    updateAll();
 });
