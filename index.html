@@ -13,13 +13,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Хрономер">
-    <link rel="apple-touch-icon" href="/icon-192.png">
+    <link rel="apple-touch-icon" href="/ios-192.png">
     
-    <!-- Android / общая иконка -->
-    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+    <!-- Favicon (Android/общий) -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-512.png">
     
-    <!-- Регистрация Service Worker для офлайн-доступа -->
+    <!-- Service Worker -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -70,15 +70,12 @@
             <button id="copy-btn" class="copy-button">📋 Копировать</button>
         </div>
 
-        <!-- Блок установки приложения -->
-        <div class="install-area">
-            <button id="install-btn" class="install-button">📲 Как установить приложение</button>
-            <div id="install-instructions" class="install-instructions" style="display: none;">
-                <p><strong>Android (Chrome):</strong> меню (⋮) → «Добавить на главный экран» или «Установить».</p>
-                <p><strong>iOS (Safari):</strong> кнопка «Поделиться» (↗) → «На экран «Домой»».</p>
-                <p>После установки сайт откроется как полноценное приложение!</p>
-            </div>
+        <!-- Блок установки (две кнопки) -->
+        <div class="install-buttons">
+            <button id="install-android" class="install-btn android-btn">🤖 Установить на Android</button>
+            <button id="install-ios" class="install-btn ios-btn">🍎 Установить на iOS</button>
         </div>
+        <div id="install-instructions" class="install-instructions" style="display: none;"></div>
 
         <footer class="business-footer">
             <div class="footer-content">
