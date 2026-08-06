@@ -150,7 +150,7 @@ textarea::-webkit-scrollbar-thumb {
     border-radius: 4px;
 }
 
-/* Блок статистики */
+/* Статистика */
 .stats {
     display: flex;
     justify-content: center;
@@ -164,7 +164,7 @@ textarea::-webkit-scrollbar-thumb {
     color: #ccc;
 }
 
-/* Блок результата */
+/* Результат */
 .result {
     display: flex;
     align-items: center;
@@ -185,7 +185,6 @@ textarea::-webkit-scrollbar-thumb {
     color: #2e7d32;
 }
 
-/* Кнопка копирования */
 .copy-button {
     background: #e8f5e9;
     border: 2px solid #81c784;
@@ -211,27 +210,64 @@ textarea::-webkit-scrollbar-thumb {
     transform: scale(0.97);
 }
 
-/* Кнопка установки */
-.install-area {
-    text-align: center;
-    margin-bottom: 25px;
+/* Кнопки установки */
+.install-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
 }
 
-.install-button {
-    background: #e1f5fe;
-    border: 2px solid #4fc3f7;
-    color: #0288d1;
-    font-size: 1rem;
-    padding: 10px 20px;
+.install-btn {
+    padding: 12px 20px;
     border-radius: 25px;
-    cursor: pointer;
     font-weight: 600;
+    font-size: 0.95rem;
+    border: 2px solid transparent;
+    cursor: pointer;
     transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.install-button:hover {
+.android-btn {
+    background: #e8f5e9;
+    border-color: #81c784;
+    color: #2e7d32;
+}
+
+.android-btn:hover {
+    background: #c8e6c9;
+}
+
+.ios-btn {
+    background: #e1f5fe;
+    border-color: #81d4fa;
+    color: #0288d1;
+}
+
+.ios-btn:hover {
     background: #b3e5fc;
-    border-color: #0288d1;
+}
+
+/* Инструкция */
+.install-instructions {
+    background: #f5f5f5;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #333;
+    text-align: left;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.install-instructions p {
+    margin-bottom: 8px;
 }
 
 /* Футер */
@@ -310,5 +346,9 @@ textarea::-webkit-scrollbar-thumb {
     .tempo-selector {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .install-buttons {
+        flex-direction: column;
     }
 }
