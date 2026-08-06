@@ -136,6 +136,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('service-audio').innerHTML = t.serviceAudio;
         document.getElementById('service-video').innerHTML = t.serviceVideo;
 
+        installAndroidBtn.textContent = t.installAndroid;
+        installIosBtn.textContent = t.installIos;
+
         const slowRadio = document.getElementById('tempo-slow');
         const normalRadio = document.getElementById('tempo-normal');
         const fastRadio = document.getElementById('tempo-fast');
@@ -189,7 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        // Меняем кнопку Android: теперь она может запустить установку
         installAndroidBtn.textContent = '🤖 Установить (доступно)';
         installAndroidBtn.style.background = '#c8e6c9';
     });
@@ -205,7 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     installAndroidBtn.addEventListener('click', () => {
         if (deferredPrompt) {
-            // Запускаем нативный диалог установки
             deferredPrompt.prompt();
             deferredPrompt.userChoice.then((choiceResult) => {
                 if (choiceResult.outcome === 'accepted') {
@@ -217,7 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 hideInstructions();
             });
         } else {
-            // Показать инструкцию
             const t = translations[currentLang];
             showInstructions(t.androidInstruction);
         }
@@ -228,7 +228,6 @@ document.addEventListener('DOMContentLoaded', () => {
         showInstructions(t.iosInstruction);
     });
 
-    // Скрываем инструкцию при клике вне кнопок (просто для удобства)
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.install-btn') && !e.target.closest('#install-instructions')) {
             hideInstructions();
