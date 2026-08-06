@@ -23,11 +23,32 @@ body {
     border: 1px solid #e0e0e0;
     width: 100%;
     max-width: 700px;
+    position: relative;
 }
 
 header {
     text-align: center;
     margin-bottom: 30px;
+    position: relative;
+}
+
+.lang-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #e1f5fe;
+    border: 1px solid #81d4fa;
+    color: #0288d1;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.lang-btn:hover {
+    background: #b3e5fc;
 }
 
 header h1 {
@@ -66,24 +87,29 @@ header p {
     gap: 5px;
     padding: 8px 15px;
     border-radius: 25px;
-    border: 1px solid #ccc;
+    border: 1px solid #b3e5fc;
     cursor: pointer;
     transition: all 0.3s;
     background: #f9f9f9;
     font-size: 0.9rem;
     user-select: none;
+    color: #333;
 }
 
 .tempo-option.active {
-    border-color: #7b2ff7;
-    background: #f3e8ff;
-    color: #7b2ff7;
+    border-color: #4fc3f7;
+    background: #e1f5fe;
+    color: #0288d1;
 }
 
 .tempo-option em {
     color: #888;
     font-style: normal;
     font-size: 0.8rem;
+}
+
+.tempo-option.active em {
+    color: #0288d1;
 }
 
 /* Поле ввода текста */
@@ -106,7 +132,7 @@ textarea {
 
 textarea:focus {
     outline: none;
-    border-color: #7b2ff7;
+    border-color: #4fc3f7;
     background: #fff;
 }
 
@@ -120,7 +146,7 @@ textarea::-webkit-scrollbar-track {
 }
 
 textarea::-webkit-scrollbar-thumb {
-    background: #7b2ff7;
+    background: #81d4fa;
     border-radius: 4px;
 }
 
@@ -146,7 +172,7 @@ textarea::-webkit-scrollbar-thumb {
     gap: 15px;
     font-size: 1.4rem;
     padding: 15px;
-    background: #f3e8ff;
+    background: #e8f5e9;
     border-radius: 12px;
     margin-bottom: 25px;
     color: #1a1a2e;
@@ -156,13 +182,13 @@ textarea::-webkit-scrollbar-thumb {
 #time-output {
     font-weight: bold;
     font-size: 1.8rem;
-    color: #7b2ff7;
+    color: #2e7d32;
 }
 
 .copy-button {
     background: transparent;
-    border: 1px solid #7b2ff7;
-    color: #7b2ff7;
+    border: 1px solid #81c784;
+    color: #2e7d32;
     font-size: 1.2rem;
     width: 40px;
     height: 40px;
@@ -176,7 +202,7 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 .copy-button:hover {
-    background: #7b2ff7;
+    background: #a5d6a7;
     color: #fff;
 }
 
@@ -219,7 +245,7 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 .footer-services strong {
-    color: #7b2ff7;
+    color: #2e7d32;
 }
 
 .footer-contacts {
@@ -230,17 +256,17 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 .footer-contacts a {
-    color: #7b2ff7;
+    color: #2e7d32;
     text-decoration: none;
     padding: 5px 12px;
-    border: 1px solid #7b2ff7;
+    border: 1px solid #81c784;
     border-radius: 20px;
     transition: all 0.3s;
     font-size: 0.9rem;
 }
 
 .footer-contacts a:hover {
-    background: #7b2ff7;
+    background: #a5d6a7;
     color: #fff;
 }
 
