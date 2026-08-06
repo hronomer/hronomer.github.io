@@ -160,9 +160,6 @@ textarea::-webkit-scrollbar-thumb {
     color: #666;
 }
 
-.stat-divider {
-    color: #ccc;
-}
 
 /* Результат */
 .result {
