@@ -78,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function calculateTime() {
         const text = textInput.value.trim();
-        const t = translations[currentLang];
         if (!text) {
             timeOutput.textContent = '0:00';
             return;
@@ -113,12 +112,11 @@ document.addEventListener('DOMContentLoaded', () => {
         currentLang = lang;
         const t = translations[lang];
 
-        // Обновляем тексты
         document.getElementById('header-desc').textContent = t.headerDesc;
         document.getElementById('tempo-label').textContent = t.tempoLabel;
-        document.getElementById('text-slow').innerHTML = `${t.slow} <em id="em-slow">${t.slowWpm}</em>`;
-        document.getElementById('text-normal').innerHTML = `${t.normal} <em id="em-normal">${t.normalWpm}</em>`;
-        document.getElementById('text-fast').innerHTML = `${t.fast} <em id="em-fast">${t.fastWpm}</em>`;
+        document.getElementById('text-slow').innerHTML = `${t.slow} <em>${t.slowWpm}</em>`;
+        document.getElementById('text-normal').innerHTML = `${t.normal} <em>${t.normalWpm}</em>`;
+        document.getElementById('text-fast').innerHTML = `${t.fast} <em>${t.fastWpm}</em>`;
         textInput.placeholder = t.placeholder;
         document.getElementById('result-label').textContent = t.resultLabel;
         copyBtn.title = t.copyTitle;
@@ -127,7 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('service-audio').innerHTML = t.serviceAudio;
         document.getElementById('service-video').innerHTML = t.serviceVideo;
 
-        // Меняем значения темпов в radio и их id/for (при необходимости)
         const slowRadio = document.getElementById('tempo-slow');
         const normalRadio = document.getElementById('tempo-normal');
         const fastRadio = document.getElementById('tempo-fast');
@@ -136,22 +133,14 @@ document.addEventListener('DOMContentLoaded', () => {
             slowRadio.value = 100;
             normalRadio.value = 120;
             fastRadio.value = 140;
-            document.querySelector('label[for="tempo-slow"] em').textContent = '100 сл/мин';
-            document.querySelector('label[for="tempo-normal"] em').textContent = '120 сл/мин';
-            document.querySelector('label[for="tempo-fast"] em').textContent = '140 сл/мин';
         } else {
             slowRadio.value = 110;
             normalRadio.value = 140;
             fastRadio.value = 160;
-            document.querySelector('label[for="tempo-slow"] em').textContent = '110 wpm';
-            document.querySelector('label[for="tempo-normal"] em').textContent = '140 wpm';
-            document.querySelector('label[for="tempo-fast"] em').textContent = '160 wpm';
         }
 
-        // Меняем текст на кнопке языка
         langToggle.textContent = lang === 'ru' ? 'EN' : 'RU';
 
-        // Пересчитываем время с новым темпом
         updateAll();
         updateActiveTempo();
     }
@@ -161,10 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const t = translations[currentLang];
         const fullText = `${t.resultLabel} ${timeText}`;
         navigator.clipboard.writeText(fullText).then(() => {
-            const originalEmoji = copyBtn.textContent;
-            copyBtn.textContent = '✅';
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = '✅ Скопировано';
             setTimeout(() => {
-                copyBtn.textContent = originalEmoji;
+                copyBtn.textContent = originalText;
             }, 1500);
         }).catch(() => {
             alert('Не удалось скопировать текст. Пожалуйста, скопируйте вручную.');
@@ -185,6 +174,33 @@ document.addEventListener('DOMContentLoaded', () => {
     langToggle.addEventListener('click', () => {
         const newLang = currentLang === 'ru' ? 'en' : 'ru';
         setLanguage(newLang);
+    });
+
+    // === Установка PWA ===
+    let deferredPrompt;
+    const installArea = document.getElementById('install-area');
+    const installBtn = document.getElementById('install-btn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installArea.style.display = 'block';
+    });
+
+    installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response: ${outcome}`);
+            deferredPrompt = null;
+            installArea.style.display = 'none';
+        }
+    });
+
+    window.addEventListener('appinstalled', () => {
+        console.log('PWA installed');
+        installArea.style.display = 'none';
+        deferredPrompt = null;
     });
 
     // Инициализация
