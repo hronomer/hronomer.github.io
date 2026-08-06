@@ -2,36 +2,35 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Хрономер — калькулятор времени озвучки текста</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Хрономер — калькулятор времени озвучки</title>
     <meta name="description" content="Хрономер — онлайн-инструмент для расчета времени озвучки текста профессиональным диктором. Производство аудио и видеороликов: дикторы, моушн-дизайн, 3D, 2D, AI, монтаж. Контакты: den.rolic@mail.ru, +79098386889, @denrolic.">
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json">
     
-    <!-- iOS full-screen meta tags -->
+    <!-- iOS (iPhone/iPad) полноэкранный режим и иконка -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Хрономер">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>⏱️</text></svg>">
+    <link rel="apple-touch-icon" href="/icon-192.png">
     
-    <!-- Регистрация Service Worker -->
+    <!-- Android / общая иконка -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+    
+    <!-- Регистрация Service Worker для офлайн-доступа -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/service-worker.js')
-            .then(registration => {
-              console.log('ServiceWorker registered');
-            })
-            .catch(err => {
-              console.log('ServiceWorker registration failed: ', err);
-            });
+            .then(reg => console.log('SW registered'))
+            .catch(err => console.log('SW failed', err));
         });
       }
     </script>
     
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>⏱️</text></svg>">
 </head>
 <body>
     <div class="container">
@@ -44,43 +43,48 @@
         <div class="tempo-selector">
             <span class="tempo-label" id="tempo-label">Темп речи:</span>
             <input type="radio" name="tempo" value="100" id="tempo-slow">
-            <label class="tempo-option" for="tempo-slow" id="label-slow">
-                <span id="text-slow">Размеренный <em id="em-slow">(100 сл/мин)</em></span>
+            <label class="tempo-option" for="tempo-slow">
+                <span id="text-slow">Размеренный <em>(100 сл/мин)</em></span>
             </label>
             <input type="radio" name="tempo" value="120" id="tempo-normal" checked>
-            <label class="tempo-option active" for="tempo-normal" id="label-normal">
-                <span id="text-normal">Стандартный <em id="em-normal">(120 сл/мин)</em></span>
+            <label class="tempo-option active" for="tempo-normal">
+                <span id="text-normal">Стандартный <em>(120 сл/мин)</em></span>
             </label>
             <input type="radio" name="tempo" value="140" id="tempo-fast">
-            <label class="tempo-option" for="tempo-fast" id="label-fast">
-                <span id="text-fast">Быстрый <em id="em-fast">(140 сл/мин)</em></span>
+            <label class="tempo-option" for="tempo-fast">
+                <span id="text-fast">Быстрый <em>(140 сл/мин)</em></span>
             </label>
         </div>
 
         <textarea id="text-input" placeholder="Введите или вставьте текст для озвучки..."></textarea>
 
-        <div class="stats" id="stats-block">
+        <div class="stats">
             <span id="char-count">Символов: 0</span>
             <span class="stat-divider">|</span>
             <span id="char-count-nospaces">Без пробелов: 0</span>
         </div>
 
-        <div class="result" id="result-block">
+        <div class="result">
             <span id="result-label">Время звучания:</span>
             <span id="time-output">0:00</span>
             <button id="copy-btn" class="copy-button">📋 Копировать</button>
         </div>
 
-        <!-- Кнопка установки приложения -->
-        <div class="install-area" id="install-area" style="display: none;">
-            <button id="install-btn" class="install-button">📲 Установить приложение</button>
+        <!-- Блок установки приложения -->
+        <div class="install-area">
+            <button id="install-btn" class="install-button">📲 Как установить приложение</button>
+            <div id="install-instructions" class="install-instructions" style="display: none;">
+                <p><strong>Android (Chrome):</strong> меню (⋮) → «Добавить на главный экран» или «Установить».</p>
+                <p><strong>iOS (Safari):</strong> кнопка «Поделиться» (↗) → «На экран «Домой»».</p>
+                <p>После установки сайт откроется как полноценное приложение!</p>
+            </div>
         </div>
 
         <footer class="business-footer">
             <div class="footer-content">
                 <p class="footer-title" id="footer-title">📢 Заказ аудио и видеороликов</p>
                 <p class="footer-subtitle" id="footer-subtitle">Профессиональное производство. Всегда актуально.</p>
-                <ul class="footer-services" id="footer-services">
+                <ul class="footer-services">
                     <li id="service-audio"><strong>Аудио:</strong> федеральные дикторы, озвучка любой сложности</li>
                     <li id="service-video"><strong>Видео:</strong> моушн-дизайн, 3D, 2D, AI, монтаж, реклама, кино, документальное видео и любые другие задачи под ключ</li>
                 </ul>
