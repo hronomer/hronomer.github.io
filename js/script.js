@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
             footerSub: 'Профессиональное производство. Всегда актуально.',
             serviceAudio: '<strong>Аудио:</strong> федеральные дикторы, озвучка любой сложности',
             serviceVideo: '<strong>Видео:</strong> моушн-дизайн, 3D, 2D, AI, монтаж, реклама, кино, документальное видео и любые другие задачи под ключ',
-            installAndroid: '🤖 Установить на Android',
-            installIos: '🍎 Установить на iOS',
+            installAndroid: 'Установить на Android',
+            installIos: 'Установить на iOS',
             androidInstruction: '<p><strong>Android (Chrome):</strong> нажмите меню (⋮) → «Добавить на главный экран» или «Установить».</p>',
             iosInstruction: '<p><strong>iOS (Safari):</strong> нажмите кнопку «Поделиться» (↗) → «На экран «Домой»».</p>'
         },
