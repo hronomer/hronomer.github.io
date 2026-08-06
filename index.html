@@ -6,24 +6,25 @@
     <title>Хрономер — калькулятор времени озвучки</title>
     <meta name="description" content="Хрономер — онлайн-инструмент для расчета времени озвучки текста профессиональным диктором. Производство аудио и видеороликов: дикторы, моушн-дизайн, 3D, 2D, AI, монтаж. Контакты: den.rolic@mail.ru, +79098386889, @denrolic.">
     
-    <!-- PWA Manifest (Android) -->
-    <link rel="manifest" href="/manifest.json">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json?v=5">
     
     <!-- iOS и десктопная иконка -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Хрономер">
-    <link rel="apple-touch-icon" href="/ios-192.png">
+    <link rel="apple-touch-icon" href="/ios-192.png?v=5">
     
     <!-- Favicon и общие иконки (десктоп, вкладка) — иконка с буквой Х -->
-    <link rel="icon" type="image/png" sizes="192x192" href="/icon-512.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-512.png?v=5">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png?v=5">
     
     <!-- Windows tile (десктоп) -->
-    <meta name="msapplication-TileImage" content="/icon-512.png">
+    <meta name="msapplication-TileImage" content="/icon-512.png?v=5">
     <meta name="msapplication-TileColor" content="#4fc3f7">
     
-    <!-- Service Worker -->
+    <!-- Service Worker отключён -->
+    <!--
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -33,8 +34,50 @@
         });
       }
     </script>
+    -->
     
+    <!-- Основные стили -->
     <link rel="stylesheet" href="css/style.css?v=5">
+    
+    <!-- Гарантированные стили для кнопок-иконок (на случай, если CSS не загрузится) -->
+    <style>
+        .install-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .install-btn {
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            background-size: 40px 40px;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-size: 0;
+            line-height: 0;
+        }
+        .android-btn {
+            background-image: url('/android-192.png');
+            background-color: #e8f5e9;
+            border-color: #81c784;
+        }
+        .android-btn:hover {
+            background-color: #c8e6c9;
+        }
+        .ios-btn {
+            background-image: url('/ios-192.png');
+            background-color: #e1f5fe;
+            border-color: #81d4fa;
+        }
+        .ios-btn:hover {
+            background-color: #b3e5fc;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -72,16 +115,16 @@
             <button id="copy-btn" class="copy-button">📋 Копировать</button>
         </div>
 
-<!-- Блок установки (только иконки, без текста) -->
-<div class="install-buttons">
-    <button id="install-android" class="install-btn android-btn" title="Установить на Android"></button>
-    <button id="install-ios" class="install-btn ios-btn" title="Установить на iOS"></button>
-</div>
-<div id="install-instructions" class="install-instructions" style="display: none;"></div>
+        <!-- Блок установки (только иконки, без текста) -->
+        <div class="install-buttons">
+            <button id="install-android" class="install-btn android-btn" title="Установить на Android"></button>
+            <button id="install-ios" class="install-btn ios-btn" title="Установить на iOS"></button>
+        </div>
+        <div id="install-instructions" class="install-instructions" style="display: none;"></div>
 
         <!-- Скачать APK -->
         <div class="apk-download">
-            <a href="/hronomer.apk" download class="apk-button">📥 Скачать APK для Android</a>
+            <a href="/hronomer.apk?v=5" download class="apk-button">📥 Скачать APK для Android</a>
         </div>
 
         <footer class="business-footer">
@@ -101,6 +144,7 @@
         </footer>
     </div>
 
-    <script src="js/script.js"></script>
+    <!-- Скрипты с версией -->
+    <script src="js/script.js?v=5"></script>
 </body>
 </html>
