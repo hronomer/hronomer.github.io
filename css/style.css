@@ -56,7 +56,6 @@ header p {
     margin-right: 5px;
 }
 
-/* Скрываем радио-кнопки, оставляем только стилизованные label */
 .tempo-selector input[type="radio"] {
     display: none;
 }
@@ -100,7 +99,7 @@ textarea {
     resize: vertical;
     background: #fafafa;
     color: #1a1a2e;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     transition: border 0.3s;
     overflow-y: auto;
 }
@@ -111,7 +110,6 @@ textarea:focus {
     background: #fff;
 }
 
-/* Кастомизация скроллбара */
 textarea::-webkit-scrollbar {
     width: 8px;
 }
@@ -126,21 +124,64 @@ textarea::-webkit-scrollbar-thumb {
     border-radius: 4px;
 }
 
+/* Блок статистики */
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.stat-divider {
+    color: #ccc;
+}
+
 /* Блок результата */
 .result {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
     font-size: 1.4rem;
     padding: 15px;
     background: #f3e8ff;
     border-radius: 12px;
     margin-bottom: 25px;
     color: #1a1a2e;
+    flex-wrap: wrap;
 }
 
 #time-output {
     font-weight: bold;
     font-size: 1.8rem;
     color: #7b2ff7;
+}
+
+.copy-button {
+    background: transparent;
+    border: 1px solid #7b2ff7;
+    color: #7b2ff7;
+    font-size: 1.2rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.copy-button:hover {
+    background: #7b2ff7;
+    color: #fff;
+}
+
+.copy-button:active {
+    transform: scale(0.95);
 }
 
 /* Футер */
