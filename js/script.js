@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const textInput = document.getElementById('text-input');
     const timeOutput = document.getElementById('time-output');
-    const charCount = document.getElementById('char-count');
-    const charCountNoSpaces = document.getElementById('char-count-nospaces');
+    const wordCountSpan = document.getElementById('word-count');
     const tempoOptions = document.querySelectorAll('input[name="tempo"]');
     const copyBtn = document.getElementById('copy-btn');
     const langToggle = document.getElementById('lang-toggle');
@@ -22,8 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             normalWpm: '120 сл/мин',
             fastWpm: '140 сл/мин',
             placeholder: 'Введите или вставьте текст для озвучки...',
-            charCount: 'Символов',
-            noSpaces: 'Без пробелов',
+            wordCount: 'Слов',
             resultLabel: 'Время звучания:',
             copyTitle: 'Копировать результат',
             footerTitle: '📢 Заказ аудио и видеороликов',
@@ -45,8 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             normalWpm: '140 wpm',
             fastWpm: '160 wpm',
             placeholder: 'Enter or paste text for voiceover...',
-            charCount: 'Characters',
-            noSpaces: 'No spaces',
+            wordCount: 'Words',
             resultLabel: 'Total time:',
             copyTitle: 'Copy result',
             footerTitle: '📢 Order audio and video production',
@@ -79,12 +76,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateStats() {
-        const text = textInput.value;
-        const totalChars = text.length;
-        const charsWithoutSpaces = text.replace(/\s/g, '').length;
-        const t = translations[currentLang];
-        charCount.textContent = `${t.charCount}: ${totalChars}`;
-        charCountNoSpaces.textContent = `${t.noSpaces}: ${charsWithoutSpaces}`;
+        const text = textInput.value.trim();
+        if (!text) {
+            wordCountSpan.textContent = `${translations[currentLang].wordCount}: 0`;
+            return;
+        }
+        const words = text.split(/\s+/).filter(word => word.length > 0);
+        wordCountSpan.textContent = `${translations[currentLang].wordCount}: ${words.length}`;
     }
 
     function calculateTime() {
