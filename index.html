@@ -15,29 +15,34 @@
             <p>Расчёт времени профессиональной озвучки текста</p>
         </header>
 
-      <div class="tempo-selector">
-    <span class="tempo-label">Темп речи:</span>
-    <input type="radio" name="tempo" value="100" id="tempo-slow">
-    <label class="tempo-option" for="tempo-slow">
-        <span>Размеренный <em>(100 сл/мин)</em></span>
-    </label>
-
-    <input type="radio" name="tempo" value="120" id="tempo-normal" checked>
-    <label class="tempo-option active" for="tempo-normal">
-        <span>Стандартный <em>(120 сл/мин)</em></span>
-    </label>
-
-    <input type="radio" name="tempo" value="140" id="tempo-fast">
-    <label class="tempo-option" for="tempo-fast">
-        <span>Быстрый <em>(140 сл/мин)</em></span>
-    </label>
-</div>
+        <div class="tempo-selector">
+            <span class="tempo-label">Темп речи:</span>
+            <input type="radio" name="tempo" value="100" id="tempo-slow">
+            <label class="tempo-option" for="tempo-slow">
+                <span>Размеренный <em>(100 сл/мин)</em></span>
+            </label>
+            <input type="radio" name="tempo" value="120" id="tempo-normal" checked>
+            <label class="tempo-option active" for="tempo-normal">
+                <span>Стандартный <em>(120 сл/мин)</em></span>
+            </label>
+            <input type="radio" name="tempo" value="140" id="tempo-fast">
+            <label class="tempo-option" for="tempo-fast">
+                <span>Быстрый <em>(140 сл/мин)</em></span>
+            </label>
+        </div>
 
         <textarea id="text-input" placeholder="Введите или вставьте текст для озвучки..."></textarea>
+
+        <div class="stats" id="stats-block">
+            <span id="char-count">Символов: 0</span>
+            <span class="stat-divider">|</span>
+            <span id="char-count-nospaces">Без пробелов: 0</span>
+        </div>
 
         <div class="result" id="result-block">
             <span>Время звучания: </span>
             <span id="time-output">0:00</span>
+            <button id="copy-btn" class="copy-button" title="Копировать результат">📋</button>
         </div>
 
         <footer class="business-footer">
