@@ -192,8 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        installAndroidBtn.textContent = '🤖 Установить (доступно)';
-        installAndroidBtn.style.background = '#c8e6c9';
+        // Текст кнопки НЕ меняем, оставляем как есть
     });
 
     function showInstructions(htmlContent) {
@@ -213,8 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log('PWA установлено');
                 }
                 deferredPrompt = null;
-                installAndroidBtn.textContent = translations[currentLang].installAndroid;
-                installAndroidBtn.style.background = '#e8f5e9';
                 hideInstructions();
             });
         } else {
