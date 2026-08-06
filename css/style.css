@@ -160,7 +160,6 @@ textarea::-webkit-scrollbar-thumb {
     color: #666;
 }
 
-
 /* Результат */
 .result {
     display: flex;
@@ -227,6 +226,29 @@ textarea::-webkit-scrollbar-thumb {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+/* Иконки в кнопках */
+.android-btn::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-image: url('/android-192.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.ios-btn::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-image: url('/ios-192.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .android-btn {
