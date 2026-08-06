@@ -216,39 +216,30 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 .install-btn {
-    padding: 12px 20px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 0.95rem;
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
     border: 2px solid transparent;
     cursor: pointer;
     transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    background-size: 40px 40px;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-size: 0;          /* скрываем любой текст */
+    line-height: 0;
 }
 
-/* Иконки в кнопках */
-.android-btn::before {
-    content: "";
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    background-image: url('/android-192.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+.android-btn {
+    background-image: url('/android-192-v2.png');
+    background-color: #e8f5e9;
+    border-color: #81c784;
 }
 
-.ios-btn::before {
-    content: "";
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    background-image: url('/ios-192.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+.ios-btn {
+    background-image: url('/ios-192-v2.png');
+    background-color: #e1f5fe;
+    border-color: #81d4fa;
+
 }
 
 .android-btn {
