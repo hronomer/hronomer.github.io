@@ -185,29 +185,30 @@ textarea::-webkit-scrollbar-thumb {
     color: #2e7d32;
 }
 
+/* Обновлённая кнопка "Копировать" */
 .copy-button {
-    background: transparent;
-    border: 1px solid #81c784;
+    background: #e8f5e9;
+    border: 2px solid #81c784;
     color: #2e7d32;
-    font-size: 1.2rem;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    font-size: 1rem;
+    padding: 8px 16px;
+    border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s;
-    display: flex;
+    font-weight: 600;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    padding: 0;
+    gap: 6px;
 }
 
 .copy-button:hover {
     background: #a5d6a7;
     color: #fff;
+    border-color: #66bb6a;
 }
 
 .copy-button:active {
-    transform: scale(0.95);
+    transform: scale(0.97);
 }
 
 /* Футер */
