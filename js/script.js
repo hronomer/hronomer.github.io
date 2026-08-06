@@ -6,8 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const tempoOptions = document.querySelectorAll('input[name="tempo"]');
     const copyBtn = document.getElementById('copy-btn');
     const langToggle = document.getElementById('lang-toggle');
+    const installAndroidBtn = document.getElementById('install-android');
+    const installIosBtn = document.getElementById('install-ios');
+    const installInstructions = document.getElementById('install-instructions');
 
-    // Объект с переводами
+    // Переводы
     const translations = {
         ru: {
             headerDesc: 'Расчёт времени профессиональной озвучки текста',
@@ -26,7 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
             footerTitle: '📢 Заказ аудио и видеороликов',
             footerSub: 'Профессиональное производство. Всегда актуально.',
             serviceAudio: '<strong>Аудио:</strong> федеральные дикторы, озвучка любой сложности',
-            serviceVideo: '<strong>Видео:</strong> моушн-дизайн, 3D, 2D, AI, монтаж, реклама, кино, документальное видео и любые другие задачи под ключ'
+            serviceVideo: '<strong>Видео:</strong> моушн-дизайн, 3D, 2D, AI, монтаж, реклама, кино, документальное видео и любые другие задачи под ключ',
+            installAndroid: '🤖 Установить на Android',
+            installIos: '🍎 Установить на iOS',
+            androidInstruction: '<p><strong>Android (Chrome):</strong> нажмите меню (⋮) → «Добавить на главный экран» или «Установить».</p>',
+            iosInstruction: '<p><strong>iOS (Safari):</strong> нажмите кнопку «Поделиться» (↗) → «На экран «Домой»».</p>'
         },
         en: {
             headerDesc: 'Professional voiceover time calculator',
@@ -45,7 +52,11 @@ document.addEventListener('DOMContentLoaded', () => {
             footerTitle: '📢 Order audio and video production',
             footerSub: 'Professional production. Always available.',
             serviceAudio: '<strong>Audio:</strong> professional voice actors, any complexity',
-            serviceVideo: '<strong>Video:</strong> motion design, 3D, 2D, AI, editing, advertising, film, documentaries and any other tasks'
+            serviceVideo: '<strong>Video:</strong> motion design, 3D, 2D, AI, editing, advertising, film, documentaries and any other tasks',
+            installAndroid: '🤖 Install on Android',
+            installIos: '🍎 Install on iOS',
+            androidInstruction: '<p><strong>Android (Chrome):</strong> menu (⋮) → "Add to Home screen" or "Install".</p>',
+            iosInstruction: '<p><strong>iOS (Safari):</strong> share button (↗) → "Add to Home Screen".</p>'
         }
     };
 
@@ -140,7 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         langToggle.textContent = lang === 'ru' ? 'EN' : 'RU';
-
         updateAll();
         updateActiveTempo();
     }
@@ -161,46 +171,68 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     textInput.addEventListener('input', updateAll);
-
     tempoOptions.forEach(radio => {
         radio.addEventListener('change', () => {
             updateActiveTempo();
             calculateTime();
         });
     });
-
     copyBtn.addEventListener('click', copyResult);
-
     langToggle.addEventListener('click', () => {
         const newLang = currentLang === 'ru' ? 'en' : 'ru';
         setLanguage(newLang);
     });
 
-    // === Установка PWA ===
+    // === Логика установки ===
     let deferredPrompt;
-    const installArea = document.getElementById('install-area');
-    const installBtn = document.getElementById('install-btn');
 
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        installArea.style.display = 'block';
+        // Меняем кнопку Android: теперь она может запустить установку
+        installAndroidBtn.textContent = '🤖 Установить (доступно)';
+        installAndroidBtn.style.background = '#c8e6c9';
     });
 
-    installBtn.addEventListener('click', async () => {
+    function showInstructions(htmlContent) {
+        installInstructions.innerHTML = htmlContent;
+        installInstructions.style.display = 'block';
+    }
+
+    function hideInstructions() {
+        installInstructions.style.display = 'none';
+    }
+
+    installAndroidBtn.addEventListener('click', () => {
         if (deferredPrompt) {
+            // Запускаем нативный диалог установки
             deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log(`User response: ${outcome}`);
-            deferredPrompt = null;
-            installArea.style.display = 'none';
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('PWA установлено');
+                }
+                deferredPrompt = null;
+                installAndroidBtn.textContent = translations[currentLang].installAndroid;
+                installAndroidBtn.style.background = '#e8f5e9';
+                hideInstructions();
+            });
+        } else {
+            // Показать инструкцию
+            const t = translations[currentLang];
+            showInstructions(t.androidInstruction);
         }
     });
 
-    window.addEventListener('appinstalled', () => {
-        console.log('PWA installed');
-        installArea.style.display = 'none';
-        deferredPrompt = null;
+    installIosBtn.addEventListener('click', () => {
+        const t = translations[currentLang];
+        showInstructions(t.iosInstruction);
+    });
+
+    // Скрываем инструкцию при клике вне кнопок (просто для удобства)
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.install-btn') && !e.target.closest('#install-instructions')) {
+            hideInstructions();
+        }
     });
 
     // Инициализация
