@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        // Текст кнопки НЕ меняем, оставляем как есть
+        // Текст кнопки не меняем, оставляем как есть
     });
 
     function showInstructions(htmlContent) {
