@@ -225,12 +225,13 @@ textarea::-webkit-scrollbar-thumb {
     background-size: 60%;
     background-position: center;
     background-repeat: no-repeat;
-    font-size: 0;
-    line-height: 0;
+    text-indent: -9999px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .android-btn {
-    background-image: url('/android-192.png');
+    background-image: url('../android-192.png');
     background-color: #e8f5e9;
     border-color: #81c784;
 }
@@ -240,7 +241,7 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 .ios-btn {
-    background-image: url('/ios-192.png');
+    background-image: url('../ios-192.png');
     background-color: #e1f5fe;
     border-color: #81d4fa;
 }
