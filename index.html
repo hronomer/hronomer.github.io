@@ -1,106 +1,399 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Хрономер — калькулятор времени озвучки</title>
-    <meta name="description" content="Хрономер — онлайн-инструмент для расчета времени озвучки текста профессиональным диктором. Производство аудио и видеороликов: дикторы, моушн-дизайн, 3D, 2D, AI, монтаж. Контакты: den.rolic@mail.ru, +79098386889, @denrolic.">
-    
-    <!-- PWA Manifest (Android) -->
-    <link rel="manifest" href="/manifest.json">
-    
-    <!-- iOS и десктопная иконка -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Хрономер">
-    <link rel="apple-touch-icon" href="/ios-192.png">
-    
-    <!-- Favicon и общие иконки (десктоп, вкладка) — иконка с буквой Х -->
-    <link rel="icon" type="image/png" sizes="192x192" href="/icon-512.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
-    
-    <!-- Windows tile (десктоп) -->
-    <meta name="msapplication-TileImage" content="/icon-512.png">
-    <meta name="msapplication-TileColor" content="#4fc3f7">
-    
-    <!-- Service Worker -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/service-worker.js')
-            .then(reg => console.log('SW registered'))
-            .catch(err => console.log('SW failed', err));
-        });
-      }
-    </script>
-    
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <button id="lang-toggle" class="lang-btn">EN</button>
-            <h1>⏱️ Хрономер</h1>
-            <p id="header-desc">Расчёт времени профессиональной озвучки текста</p>
-        </header>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        <div class="tempo-selector">
-            <span class="tempo-label" id="tempo-label">Темп речи:</span>
-            <input type="radio" name="tempo" value="100" id="tempo-slow">
-            <label class="tempo-option" for="tempo-slow">
-                <span id="text-slow">Размеренный <em>(100 сл/мин)</em></span>
-            </label>
-            <input type="radio" name="tempo" value="120" id="tempo-normal" checked>
-            <label class="tempo-option active" for="tempo-normal">
-                <span id="text-normal">Стандартный <em>(120 сл/мин)</em></span>
-            </label>
-            <input type="radio" name="tempo" value="140" id="tempo-fast">
-            <label class="tempo-option" for="tempo-fast">
-                <span id="text-fast">Быстрый <em>(140 сл/мин)</em></span>
-            </label>
-        </div>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1a1a2e;
+    padding: 20px;
+}
 
-        <textarea id="text-input" placeholder="Введите или вставьте текст для озвучки..."></textarea>
+.container {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    width: 100%;
+    max-width: 700px;
+    position: relative;
+}
 
-        <div class="stats">
-            <span id="word-count">Слов: 0</span>
-        </div>
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+}
 
-        <div class="result">
-            <span id="result-label">Время звучания:</span>
-            <span id="time-output">0:00</span>
-            <button id="copy-btn" class="copy-button">📋 Копировать</button>
-        </div>
+.lang-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #e1f5fe;
+    border: 1px solid #81d4fa;
+    color: #0288d1;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
 
-        <!-- Блок установки -->
-        <div class="install-buttons">
-            <button id="install-android" class="install-btn android-btn">🤖 Установить на Android</button>
-            <button id="install-ios" class="install-btn ios-btn">🍎 Установить на iOS</button>
-        </div>
-        <div id="install-instructions" class="install-instructions" style="display: none;"></div>
+.lang-btn:hover {
+    background: #b3e5fc;
+}
 
-        <!-- Скачать APK -->
-        <div class="apk-download">
-            <a href="/hronomer.apk" download class="apk-button">📥 Скачать APK для Android</a>
-        </div>
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+    color: #1a1a2e;
+}
 
-        <footer class="business-footer">
-            <div class="footer-content">
-                <p class="footer-title" id="footer-title">📢 Заказ аудио и видеороликов</p>
-                <p class="footer-subtitle" id="footer-subtitle">Профессиональное производство. Всегда актуально.</p>
-                <ul class="footer-services">
-                    <li id="service-audio"><strong>Аудио:</strong> федеральные дикторы, озвучка любой сложности</li>
-                    <li id="service-video"><strong>Видео:</strong> моушн-дизайн, 3D, 2D, AI, монтаж, реклама, кино, документальное видео и любые другие задачи под ключ</li>
-                </ul>
-                <div class="footer-contacts">
-                    <a href="mailto:den.rolic@mail.ru">den.rolic@mail.ru</a>
-                    <a href="tel:+79098386889">+7 (909) 838-68-89</a>
-                    <a href="https://t.me/denrolic" target="_blank">@denrolic</a>
-                </div>
-            </div>
-        </footer>
-    </div>
+header p {
+    color: #666;
+    font-size: 0.95rem;
+}
 
-    <script src="js/script.js"></script>
-</body>
-</html>
+/* Переключатели темпа */
+.tempo-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.tempo-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-right: 5px;
+}
+
+.tempo-selector input[type="radio"] {
+    display: none;
+}
+
+.tempo-option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 15px;
+    border-radius: 25px;
+    border: 1px solid #b3e5fc;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: #f9f9f9;
+    font-size: 0.9rem;
+    user-select: none;
+    color: #333;
+}
+
+.tempo-option.active {
+    border-color: #4fc3f7;
+    background: #e1f5fe;
+    color: #0288d1;
+}
+
+.tempo-option em {
+    color: #888;
+    font-style: normal;
+    font-size: 0.8rem;
+}
+
+.tempo-option.active em {
+    color: #0288d1;
+}
+
+/* Поле ввода текста */
+textarea {
+    width: 100%;
+    height: 400px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    resize: vertical;
+    background: #fafafa;
+    color: #1a1a2e;
+    margin-bottom: 10px;
+    transition: border 0.3s;
+    overflow-y: auto;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #4fc3f7;
+    background: #fff;
+}
+
+textarea::-webkit-scrollbar {
+    width: 8px;
+}
+
+textarea::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background: #81d4fa;
+    border-radius: 4px;
+}
+
+/* Статистика */
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Результат */
+.result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-size: 1.4rem;
+    padding: 15px;
+    background: #e8f5e9;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    color: #1a1a2e;
+    flex-wrap: wrap;
+}
+
+#time-output {
+    font-weight: bold;
+    font-size: 1.8rem;
+    color: #2e7d32;
+}
+
+.copy-button {
+    background: #e8f5e9;
+    border: 2px solid #81c784;
+    color: #2e7d32;
+    font-size: 1rem;
+    padding: 8px 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.copy-button:hover {
+    background: #a5d6a7;
+    color: #fff;
+    border-color: #66bb6a;
+}
+
+.copy-button:active {
+    transform: scale(0.97);
+}
+
+/* Кнопки установки */
+.install-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.install-btn {
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Иконки в кнопках */
+.android-btn::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-image: url('/android-192.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.ios-btn::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-image: url('/ios-192.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.android-btn {
+    background: #e8f5e9;
+    border-color: #81c784;
+    color: #2e7d32;
+}
+
+.android-btn:hover {
+    background: #c8e6c9;
+}
+
+.ios-btn {
+    background: #e1f5fe;
+    border-color: #81d4fa;
+    color: #0288d1;
+}
+
+.ios-btn:hover {
+    background: #b3e5fc;
+}
+
+/* Инструкция */
+.install-instructions {
+    background: #f5f5f5;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #333;
+    text-align: left;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.install-instructions p {
+    margin-bottom: 8px;
+}
+
+/* Кнопка APK */
+.apk-download {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.apk-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #c8e6c9;
+    border: 2px solid #66bb6a;
+    color: #2e7d32;
+    padding: 12px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.apk-button:hover {
+    background: #a5d6a7;
+    color: #fff;
+}
+
+/* Футер */
+.business-footer {
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 1px solid #e0e0e0;
+    text-align: center;
+    color: #555;
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.footer-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 5px;
+}
+
+.footer-subtitle {
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.footer-services {
+    list-style: none;
+    text-align: left;
+    margin: 0 auto 20px;
+    max-width: 450px;
+}
+
+.footer-services li {
+    margin-bottom: 8px;
+}
+
+.footer-services strong {
+    color: #2e7d32;
+}
+
+.footer-contacts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.footer-contacts a {
+    color: #2e7d32;
+    text-decoration: none;
+    padding: 5px 12px;
+    border: 1px solid #81c784;
+    border-radius: 20px;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.footer-contacts a:hover {
+    background: #a5d6a7;
+    color: #fff;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    textarea {
+        height: 300px;
+    }
+
+    .tempo-selector {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .install-buttons {
+        flex-direction: column;
+    }
+}
