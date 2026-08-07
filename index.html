@@ -4,35 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     
-    <!-- Запрет кэширования самого HTML -->
+    <!-- Запрет кэширования HTML -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
     <title>Хрономер — калькулятор времени озвучки</title>
-    <meta name="description" content="Хрономер — онлайн-инструмент для расчета времени озвучки текста профессиональным диктором. Производство аудио и видеороликов: дикторы, моушн-дизайн, 3D, 2D, AI, монтаж. Контакты: den.rolic@mail.ru, +79098386889, @denrolic.">
+    <meta name="description" content="Хрономер — онлайн-инструмент для расчета времени озвучки текста профессиональным диктором.">
     
-    <!-- Подключение внешнего файла CSS с версионированием -->
-    <link rel="stylesheet" href="css/style.css?v=1.0.2">
+    <!-- Подключение CSS -->
+    <link rel="stylesheet" href="css/style.css?v=1.0.4">
 
-    <link rel="manifest" href="manifest.json?v=1.0.2">
+    <!-- PWA Манифест -->
+    <link rel="manifest" href="manifest.json?v=1.0.4">
     
+    <!-- Настройки для iOS (Иконка на рабочий стол) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Хрономер">
-    <link rel="apple-touch-icon" href="ios-192.png?v=1.0.2">
+    <link rel="apple-touch-icon" href="icon-512.png?v=1.0.4">
     
-    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=1.0.2">
-    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png?v=1.0.2">
+    <!-- Иконки сайта (Favicon) -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-512.png?v=1.0.4">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png?v=1.0.4">
     
-    <meta name="msapplication-TileImage" content="icon-512.png?v=1.0.2">
+    <meta name="msapplication-TileImage" content="icon-512.png?v=1.0.4">
     <meta name="msapplication-TileColor" content="#4fc3f7">
 </head>
 <body>
     <div class="container">
         <header>
             <button id="lang-toggle" class="lang-btn">EN</button>
-            <h1>⏱️ Хрономер</h1>
+            
+            <!-- Шапка с логотипом приложения -->
+            <div class="header-logo-title">
+                <img src="icon-512.png?v=1.0.4" alt="Хрономер Лого" class="app-logo">
+                <h1>Хрономер</h1>
+            </div>
+            
             <p id="header-desc">Расчёт времени профессиональной озвучки текста</p>
         </header>
 
@@ -64,18 +73,15 @@
             <button id="copy-btn" class="copy-button">📋 Копировать</button>
         </div>
 
-       <div class="install-buttons">
-    <button id="install-android" class="install-btn android-btn" title="Установить на Android">
-        <img src="android-192.png?v=1.0.3" alt="Android" class="install-icon">
-    </button>
-    <button id="install-ios" class="install-btn ios-btn" title="Установить на iOS">
-        <img src="ios-192.png?v=1.0.3" alt="iOS" class="install-icon">
-    </button>
-</div>
+        <!-- Кнопки установки (БЕЗ ТЕКСТА) -->
+        <div class="install-buttons">
+            <button id="install-android" class="install-btn android-btn" aria-label="Установить на Android" title="Установить на Android"></button>
+            <button id="install-ios" class="install-btn ios-btn" aria-label="Установить на iOS" title="Установить на iOS"></button>
+        </div>
         <div id="install-instructions" class="install-instructions" style="display: none;"></div>
 
         <div class="apk-download">
-            <a href="hronomer.apk?v=1.0.2" download class="apk-button">📥 Скачать APK для Android</a>
+            <a href="hronomer.apk?v=1.0.4" download class="apk-button">📥 Скачать APK для Android</a>
         </div>
 
         <footer class="business-footer">
@@ -95,7 +101,7 @@
         </footer>
     </div>
 
-    <!-- Подключение скрипта из папки js -->
-    <script src="js/script.js?v=1.0.2"></script>
+    <!-- Подключение JS -->
+    <script src="js/script.js?v=1.0.4"></script>
 </body>
 </html>
