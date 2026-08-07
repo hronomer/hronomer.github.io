@@ -232,3 +232,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Инициализация
     setLanguage('ru');
 });
+// Регистрация Service Worker для поддержки PWA на Android
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('Service Worker зарегистрирован:', reg))
+            .catch(err => console.log('Ошибка регистрации Service Worker:', err));
+    });
+}
