@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
             footerSub: 'Professional production. Always available.',
             serviceAudio: '<strong>Audio:</strong> professional voice actors, any complexity',
             serviceVideo: '<strong>Video:</strong> motion design, 3D, 2D, AI, editing, advertising, film, documentaries and any other tasks',
-            installAndroid: '🤖 Install on Android',
-            installIos: '🍎 Install on iOS',
+            installAndroid: 'Install on Android',
+            installIos: 'Install on iOS',
             androidInstruction: '<p><strong>Android (Chrome):</strong> menu (⋮) → "Add to Home screen" or "Install".</p>',
             iosInstruction: '<p><strong>iOS (Safari):</strong> share button (↗) → "Add to Home Screen".</p>'
         }
@@ -62,10 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateActiveTempo() {
         tempoOptions.forEach(radio => {
             const label = document.querySelector(`label[for="${radio.id}"]`);
-            if (radio.checked) {
-                label.classList.add('active');
-            } else {
-                label.classList.remove('active');
+            if (label) {
+                label.classList.toggle('active', radio.checked);
             }
         });
     }
@@ -134,8 +132,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('service-audio').innerHTML = t.serviceAudio;
         document.getElementById('service-video').innerHTML = t.serviceVideo;
 
-        installAndroidBtn.textContent = t.installAndroid;
-        installIosBtn.textContent = t.installIos;
+        // Важно: меняем всплывающие подсказки, а не текст внутри кнопок
+        installAndroidBtn.title = t.installAndroid;
+        installAndroidBtn.setAttribute('aria-label', t.installAndroid);
+        installIosBtn.title = t.installIos;
+        installIosBtn.setAttribute('aria-label', t.installIos);
 
         const slowRadio = document.getElementById('tempo-slow');
         const normalRadio = document.getElementById('tempo-normal');
@@ -184,13 +185,12 @@ document.addEventListener('DOMContentLoaded', () => {
         setLanguage(newLang);
     });
 
-    // === Логика установки ===
+    // === Логика установки PWA ===
     let deferredPrompt;
 
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        // Текст кнопки не меняем, оставляем как есть
     });
 
     function showInstructions(htmlContent) {
@@ -232,10 +232,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Инициализация
     setLanguage('ru');
 });
+
 // Регистрация Service Worker для поддержки PWA на Android
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register('sw.js')
             .then(reg => console.log('Service Worker зарегистрирован:', reg))
             .catch(err => console.log('Ошибка регистрации Service Worker:', err));
     });
