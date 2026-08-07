@@ -32,6 +32,33 @@ header {
     position: relative;
 }
 
+/* Логотип в шапке сайта */
+.header-logo-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.app-logo {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #1a1a2e;
+    line-height: 1;
+}
+
+header p {
+    color: #666;
+    font-size: 0.95rem;
+}
+
 .lang-btn {
     position: absolute;
     top: 0;
@@ -49,17 +76,6 @@ header {
 
 .lang-btn:hover {
     background: #b3e5fc;
-}
-
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 8px;
-    color: #1a1a2e;
-}
-
-header p {
-    color: #666;
-    font-size: 0.95rem;
 }
 
 /* Переключатели темпа */
@@ -206,7 +222,7 @@ textarea::-webkit-scrollbar-thumb {
     transform: scale(0.97);
 }
 
-/* Кнопки установки – отображение иконок */
+/* Кнопки установки – Чистые иконки без текста */
 .install-buttons {
     display: flex;
     gap: 20px;
@@ -222,14 +238,11 @@ textarea::-webkit-scrollbar-thumb {
     border: 2px solid transparent;
     cursor: pointer;
     transition: all 0.3s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    /* Резервное отображение фона для фоновых изображений CSS через корень */
     background-size: 60%;
     background-position: center;
     background-repeat: no-repeat;
+    font-size: 0;
+    line-height: 0;
 }
 
 .android-btn {
@@ -250,14 +263,6 @@ textarea::-webkit-scrollbar-thumb {
 
 .ios-btn:hover {
     background-color: #b3e5fc;
-}
-
-/* Стили для вложенной картинки (если используется тег <img> в HTML) */
-.install-icon {
-    width: 38px;
-    height: 38px;
-    object-fit: contain;
-    pointer-events: none;
 }
 
 /* Инструкция */
@@ -369,6 +374,11 @@ textarea::-webkit-scrollbar-thumb {
         padding: 20px;
     }
 
+    .app-logo {
+        width: 36px;
+        height: 36px;
+    }
+
     header h1 {
         font-size: 2rem;
     }
@@ -389,12 +399,7 @@ textarea::-webkit-scrollbar-thumb {
     .install-btn {
         width: 52px;
         height: 52px;
-        border-radius: 14px;
         background-size: 60%;
-    }
-
-    .install-icon {
-        width: 30px;
-        height: 30px;
+        border-radius: 14px;
     }
 }
