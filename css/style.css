@@ -231,23 +231,15 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 .android-btn {
-    background-image: url('../android-192.png');
+    background-image: url('/android-192.png?v=1.0.3');
     background-color: #e8f5e9;
     border-color: #81c784;
 }
 
-.android-btn:hover {
-    background-color: #c8e6c9;
-}
-
 .ios-btn {
-    background-image: url('../ios-192.png');
+    background-image: url('/ios-192.png?v=1.0.3');
     background-color: #e1f5fe;
     border-color: #81d4fa;
-}
-
-.ios-btn:hover {
-    background-color: #b3e5fc;
 }
 
 /* Инструкция */
